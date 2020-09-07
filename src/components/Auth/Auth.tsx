@@ -4,6 +4,7 @@ import "./Auth.css";
 
 interface AuthProps {
   updateToken: Function;
+  setCurrentUser: Function;
 }
 
 interface AuthState {
@@ -69,6 +70,11 @@ class Auth extends React.Component<AuthProps, AuthState> {
       .then((res) => res.json())
       .then((json) => {
         this.props.updateToken(json.sessionToken);
+        const newCurrentUser = {
+          id: json.user.id,
+          username: json.user.username,
+        };
+        this.props.setCurrentUser(newCurrentUser);
       });
   };
 

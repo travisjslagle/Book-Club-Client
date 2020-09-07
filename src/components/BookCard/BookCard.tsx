@@ -1,18 +1,17 @@
 import React from "react";
 import { Book } from "../Booklist/Booklist";
 import { Card, Button, CardTitle, CardText, Col } from "reactstrap";
+import { User } from "../../App";
 
 interface BookCardProps {
   books: Book[];
   sessionToken: string;
   deleteBook: Function;
+  updateActiveBook: Function;
+  currentUser: User;
 }
 
 class BookCard extends React.Component<BookCardProps> {
-  constructor(props: BookCardProps) {
-    super(props);
-  }
-
   render() {
     return (
       <>
@@ -27,8 +26,11 @@ class BookCard extends React.Component<BookCardProps> {
                   </p>
                   <p>Published: {book.releaseYear}</p>
                 </CardText>
+                <Button onClick={(e) => this.props.updateActiveBook(book)}>
+                  Join The Discussion
+                </Button>
                 <Button onClick={(e) => this.props.deleteBook(book)}>
-                  Delete
+                  Delete This Book
                 </Button>
               </Card>
             </Col>

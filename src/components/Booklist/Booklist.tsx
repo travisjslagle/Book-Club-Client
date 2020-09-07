@@ -1,9 +1,12 @@
 import React from "react";
-import { Row, Button, Form, Input, Label } from "reactstrap";
+import { Row, Button, Form, Input } from "reactstrap";
 import BookCard from "../BookCard/BookCard";
+import { User } from "../../App";
 
 interface BookProps {
   sessionToken: string;
+  updateActiveBook: Function;
+  currentUser: User;
 }
 
 export interface Book {
@@ -100,6 +103,7 @@ class Booklist extends React.Component<BookProps, BookState> {
         authorLast: this.state.newAuthorLast,
         authorFirst: this.state.newAuthorFirst,
         releaseYear: this.state.newReleaseYear,
+        createdBy: this.props.currentUser.id,
       },
     };
     fetch("http://localhost:3001/book/create", {
@@ -162,6 +166,8 @@ class Booklist extends React.Component<BookProps, BookState> {
             books={this.state.books}
             sessionToken={this.props.sessionToken}
             deleteBook={this.deleteBook}
+            updateActiveBook={this.props.updateActiveBook}
+            currentUser={this.props.currentUser}
           />
         </Row>
       </div>
