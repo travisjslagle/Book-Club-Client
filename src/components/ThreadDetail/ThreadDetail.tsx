@@ -10,6 +10,7 @@ import {
   Form,
   Input,
 } from "reactstrap";
+import APIURL from "../../helpers/environment";
 
 export interface Post {
   content: string;
@@ -46,7 +47,7 @@ class ThreadDetail extends React.Component<
   }
 
   fetchPosts = () => {
-    fetch(`http://localhost:3001/post/${this.props.activeThread.id}`, {
+    fetch(`${APIURL}/post/${this.props.activeThread.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +62,7 @@ class ThreadDetail extends React.Component<
   };
 
   deletePost = (post: Post) => {
-    fetch(`http://localhost:3001/post/delete/${post.id}`, {
+    fetch(`${APIURL}/post/delete/${post.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +81,7 @@ class ThreadDetail extends React.Component<
         isFlagged: false,
       },
     };
-    fetch("http://localhost:3001/post/create", {
+    fetch(`${APIURL}/post/create`, {
       method: "POST",
       body: JSON.stringify(newPostObj),
       headers: {
@@ -93,7 +94,7 @@ class ThreadDetail extends React.Component<
   };
 
   flagPost = (post: Post) => {
-    fetch(`http://localhost:3001/post/flagged/${post.id}`, {
+    fetch(`${APIURL}/post/flagged/${post.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

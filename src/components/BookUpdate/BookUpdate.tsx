@@ -9,6 +9,7 @@ import {
   ModalBody,
 } from "reactstrap";
 import { Book } from "../Booklist/Booklist";
+import APIURL from "../../helpers/environment";
 
 interface BookUpdateProps {
   sessionToken: string;
@@ -75,7 +76,7 @@ class BookUpdate extends React.Component<BookUpdateProps, BookUpdateState> {
       },
     };
     // @ts-expect-error  -- activeBook will not be undefined if this component has mounted
-    fetch(`http://localhost:3001/book/update/${this.props.bookToUpdate.id}`, {
+    fetch(`${APIURL}/book/update/${this.props.bookToUpdate.id}`, {
       method: "PUT",
       body: JSON.stringify(updateBook),
       headers: {

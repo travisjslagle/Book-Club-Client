@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Label, Input, Button } from "reactstrap";
 import "./Auth.css";
+import APIURL from "../../helpers/environment";
 
 interface AuthProps {
   updateToken: Function;
@@ -49,8 +50,8 @@ class Auth extends React.Component<AuthProps, AuthState> {
   handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const url: string = this.state.login
-      ? "http://localhost:3001/user/login"
-      : "http://localhost:3001/user/create";
+      ? `${APIURL}/user/login`
+      : `${APIURL}/user/create`;
 
     const userPayload = {
       user: {

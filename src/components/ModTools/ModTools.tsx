@@ -1,6 +1,7 @@
 import React from "react";
 import { Post } from "../ThreadDetail/ThreadDetail";
 import { Card, Button, CardTitle, CardText, Form, Input } from "reactstrap";
+import APIURL from "../../helpers/environment";
 
 interface ModToolsProps {
   sessionToken: string;
@@ -34,7 +35,7 @@ class ModTools extends React.Component<ModToolsProps, ModToolsState> {
   };
 
   fetchFlaggedPosts = () => {
-    fetch("http://localhost:3001/post/review/allflagged", {
+    fetch(`${APIURL}/post/review/allflagged`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +50,7 @@ class ModTools extends React.Component<ModToolsProps, ModToolsState> {
   };
 
   deletePost = (post: Post) => {
-    fetch(`http://localhost:3001/post/delete/${post.id}`, {
+    fetch(`${APIURL}/post/delete/${post.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +62,7 @@ class ModTools extends React.Component<ModToolsProps, ModToolsState> {
   };
 
   unflagPost = (post: Post) => {
-    fetch(`http://localhost:3001/post/unflagged/${post.id}`, {
+    fetch(`${APIURL}/post/unflagged/${post.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +74,7 @@ class ModTools extends React.Component<ModToolsProps, ModToolsState> {
   };
 
   bestowModPowers = (id: number) => {
-    fetch(`http://localhost:3001/user/mod/${id}`, {
+    fetch(`${APIURL}/user/mod/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
