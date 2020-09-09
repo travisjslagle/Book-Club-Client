@@ -1,6 +1,14 @@
 import React from "react";
 import { Route, Link, Switch } from "react-router-dom";
-import { Card, CardBody, CardTitle, Col, Row, CardImg } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  Col,
+  Container,
+  Row,
+  CardImg,
+} from "reactstrap";
 import BookRoot from "../BookRoot/BookRoot";
 import { Book } from "../Booklist/Booklist";
 import { User } from "../../App";
@@ -20,28 +28,30 @@ class Splash extends React.Component<SplashProps> {
   render() {
     return (
       <div>
-        <Row>
-          <Col>
-            <Card>
-              <Link to="/">
-                <CardImg top width="100%" src="" alt="books" />
-                <CardBody>
-                  <CardTitle>Enter The Forum</CardTitle>
-                </CardBody>
-              </Link>
-            </Card>
-          </Col>
-          <Col>
-            <Card>
-              <Link to="/account">
-                <CardImg top width="100%" src="" alt="books" />
-                <CardBody>
-                  <CardTitle>Manage My Account</CardTitle>
-                </CardBody>
-              </Link>
-            </Card>
-          </Col>
-        </Row>
+        <Container>
+          <Row>
+            <Col md="6">
+              <Card>
+                <Link to="/">
+                  <CardImg top width="100%" src="" alt="books" />
+                  <CardBody>
+                    <CardTitle>Enter The Forum</CardTitle>
+                  </CardBody>
+                </Link>
+              </Card>
+            </Col>
+            <Col md="6">
+              <Card>
+                <Link to="/account">
+                  <CardImg top width="100%" src="" alt="books" />
+                  <CardBody>
+                    <CardTitle>Manage My Account</CardTitle>
+                  </CardBody>
+                </Link>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
         <div>
           <Switch>
             <Route exact path="/">

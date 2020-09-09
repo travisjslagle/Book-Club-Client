@@ -120,7 +120,7 @@ class ThreadDetail extends React.Component<
         ) : null}
         <br />
         <br />
-        <Card key={this.props.activeThread.headline} body>
+        <Card key={this.props.activeThread.headline} body className="card">
           <CardTitle>{this.props.activeThread.headline}</CardTitle>
           <CardText>
             <p>{this.props.activeThread.originalPost}</p>
@@ -142,7 +142,7 @@ class ThreadDetail extends React.Component<
         {this.state.posts.map((post) => {
           return (
             <>
-              <Card key={post.id}>
+              <Card key={post.id} className="card">
                 <CardText>
                   <p>{post.content}</p>
                 </CardText>

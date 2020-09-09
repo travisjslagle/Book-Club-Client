@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
+import { Route, Link, Switch } from "react-router-dom";
 
 class Header extends React.Component {
   render() {

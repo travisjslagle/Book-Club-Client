@@ -23,18 +23,16 @@ class ThreadCard extends React.Component<ThreadCardProps> {
         {this.props.threads.map((thread) => {
           return (
             <Col sm="4">
-              <Card key={thread.id} body>
+              <Card key={thread.id} body outline color="info" className="card">
                 <CardTitle>{thread.headline}</CardTitle>
                 <CardText>
                   <p>{thread.originalPost}</p>
                   <p>Is Flagged?: {!thread.isFlagged ? "Nah" : "Yeah"}</p>
                 </CardText>
-                <Button onClick={(e) => this.props.updateActiveThread(thread)}>
-                  Reply
-                </Button>
                 {thread.createdBy === this.props.currentUser.id ? (
                   <div>
                     <Button
+                      className="smallBtn"
                       onClick={(e) => {
                         this.props.selectThreadToUpdate(thread);
                         this.props.updateOn();
@@ -42,11 +40,17 @@ class ThreadCard extends React.Component<ThreadCardProps> {
                     >
                       Edit Thread
                     </Button>
-                    <Button onClick={(e) => this.props.deleteThread(thread)}>
-                      Delete This Thread
+                    <Button
+                      className="smallBtn"
+                      onClick={(e) => this.props.deleteThread(thread)}
+                    >
+                      Delete Thread
                     </Button>
                   </div>
                 ) : null}
+                <Button onClick={(e) => this.props.updateActiveThread(thread)}>
+                  Reply
+                </Button>
               </Card>
             </Col>
           );

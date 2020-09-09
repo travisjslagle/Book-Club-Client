@@ -13,7 +13,7 @@ interface HomeProps {
 class Home extends React.Component<HomeProps> {
   render() {
     return (
-      <div>
+      <div className="homeBar">
         <h2>Welcome to the Home Screen!</h2>
         <img
           id="splashPic"
