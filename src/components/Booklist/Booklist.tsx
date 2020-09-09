@@ -1,9 +1,14 @@
 import React from "react";
-import { Row, Button, Form, Input, Label } from "reactstrap";
+import { Row, Button, Form, Input } from "reactstrap";
 import BookCard from "../BookCard/BookCard";
+import { User } from "../../App";
+import BookUpdate from "../BookUpdate/BookUpdate";
 
 interface BookProps {
   sessionToken: string;
+  activeBook: Book | undefined;
+  updateActiveBook: Function;
+  currentUser: User;
 }
 
 export interface Book {
@@ -22,6 +27,8 @@ interface BookState {
   newAuthorLast: string;
   newAuthorFirst: string;
   newReleaseYear: number;
+  bookUpdating: boolean;
+  bookToUpdate: Book | undefined;
 }
 
 class Booklist extends React.Component<BookProps, BookState> {
@@ -35,12 +42,13 @@ class Booklist extends React.Component<BookProps, BookState> {
       newAuthorLast: "",
       newAuthorFirst: "",
       newReleaseYear: 0,
+      bookUpdating: false,
+      bookToUpdate: undefined,
     };
   }
 
-  bookUrl = "http://localhost:3001/book/";
   fetchBooks = () => {
-    fetch(this.bookUrl, {
+    fetch("http://localhost:3001/book/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +63,6 @@ class Booklist extends React.Component<BookProps, BookState> {
   };
 
   deleteBook = (book: Book) => {
-    console.log("Deleting: ", book.id);
     fetch(`http://localhost:3001/book/delete/${book.id}`, {
       method: "DELETE",
       headers: {
@@ -93,6 +100,19 @@ class Booklist extends React.Component<BookProps, BookState> {
     this.setState({ newReleaseYear: convertedYear });
   };
 
+  updateOn = (e: React.MouseEvent<HTMLButtonElement>) => {
+    this.setState({ bookUpdating: true });
+  };
+
+  updateOff = (e: React.MouseEvent<HTMLButtonElement>) => {
+    this.setState({ bookUpdating: false });
+    this.setState({ bookToUpdate: undefined });
+  };
+
+  selectBookToUpdate = (book: Book) => {
+    this.setState({ bookToUpdate: book });
+  };
+
   addBook = () => {
     const newBookObj = {
       book: {
@@ -100,6 +120,7 @@ class Booklist extends React.Component<BookProps, BookState> {
         authorLast: this.state.newAuthorLast,
         authorFirst: this.state.newAuthorFirst,
         releaseYear: this.state.newReleaseYear,
+        createdBy: this.props.currentUser.id,
       },
     };
     fetch("http://localhost:3001/book/create", {
@@ -162,7 +183,21 @@ class Booklist extends React.Component<BookProps, BookState> {
             books={this.state.books}
             sessionToken={this.props.sessionToken}
             deleteBook={this.deleteBook}
+            updateActiveBook={this.props.updateActiveBook}
+            currentUser={this.props.currentUser}
+            updateOn={this.updateOn}
+            selectBookToUpdate={this.selectBookToUpdate}
           />
+          {this.state.bookUpdating ? (
+            <BookUpdate
+              sessionToken={this.props.sessionToken}
+              updateOff={this.updateOff}
+              bookToUpdate={this.state.bookToUpdate}
+              fetchBooks={this.fetchBooks}
+            />
+          ) : (
+            <> </>
+          )}
         </Row>
       </div>
     );
