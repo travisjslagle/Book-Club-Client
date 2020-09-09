@@ -1,5 +1,4 @@
 import React from "react";
-import Auth from "../Auth/Auth";
 import Threads from "../Threads/Threads";
 import Home from "../Home/Home";
 import { Book } from "../Booklist/Booklist";
@@ -19,12 +18,7 @@ class BookRoot extends React.Component<BookRootProps> {
   render() {
     return (
       <div>
-        {!this.props.sessionToken ? (
-          <Auth
-            updateToken={this.props.updateToken}
-            setCurrentUser={this.props.setCurrentUser}
-          />
-        ) : this.props.activeBook ? (
+        {this.props.activeBook ? (
           <Threads
             sessionToken={this.props.sessionToken}
             activeBook={this.props.activeBook}

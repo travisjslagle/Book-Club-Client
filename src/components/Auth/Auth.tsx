@@ -119,8 +119,10 @@ class Auth extends React.Component<AuthProps, AuthState> {
               />
             </div>
             <div className="submit">
-              <Button type="submit">Submit Info</Button>
-              <Button onClick={this.toggleLogin}>
+              <Button className="authButton" type="submit">
+                Submit Info
+              </Button>
+              <Button className="authButton" onClick={this.toggleLogin}>
                 {this.state.login ? "Switch to Sign Up" : "Switch to Login"}
               </Button>
             </div>

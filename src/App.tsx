@@ -2,8 +2,8 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Book } from "./components/Booklist/Booklist";
-import Header from "./components/Header/Header";
 import Splash from "./components/Splash/Splash";
+import Auth from "./components/Auth/Auth";
 
 interface AppState {
   sessionToken: string;
@@ -51,18 +51,24 @@ class App extends React.Component<{}, AppState> {
   render() {
     return (
       <div className="App">
-        <Header />
-        <Router>
-          <Splash
-            sessionToken={this.state.sessionToken}
+        {!this.state.sessionToken ? (
+          <Auth
             updateToken={this.updateToken}
             setCurrentUser={this.setCurrentUser}
-            activeBook={this.state.activeBook}
-            updateActiveBook={this.updateActiveBook}
-            clearActiveBook={this.clearActiveBook}
-            currentUser={this.state.currentUser}
           />
-        </Router>
+        ) : (
+          <Router>
+            <Splash
+              sessionToken={this.state.sessionToken}
+              updateToken={this.updateToken}
+              setCurrentUser={this.setCurrentUser}
+              activeBook={this.state.activeBook}
+              updateActiveBook={this.updateActiveBook}
+              clearActiveBook={this.clearActiveBook}
+              currentUser={this.state.currentUser}
+            />
+          </Router>
+        )}
       </div>
     );
   }

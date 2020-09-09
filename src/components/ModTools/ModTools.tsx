@@ -117,7 +117,7 @@ class ModTools extends React.Component<ModToolsProps, ModToolsState> {
         {this.state.flaggedPosts.map((post) => {
           return (
             <>
-              <Card key={post.id} body>
+              <Card key={post.id} body className="card">
                 <CardTitle>Post ID: {post.id}</CardTitle>
                 <CardText>
                   <p>{post.content}</p>

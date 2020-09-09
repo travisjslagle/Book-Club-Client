@@ -13,7 +13,7 @@ class AccountCard extends React.Component<AccountCardProps> {
         {this.props.userBooks.map((book) => {
           return (
             <Col>
-              <Card key={book.title} body>
+              <Card key={book.title} body outline color="info">
                 <CardTitle>{book.title}</CardTitle>
                 <CardText>
                   <p>

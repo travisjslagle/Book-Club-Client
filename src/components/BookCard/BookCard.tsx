@@ -20,7 +20,7 @@ class BookCard extends React.Component<BookCardProps> {
         {this.props.books.map((book) => {
           return (
             <Col sm="4">
-              <Card key={book.title} body>
+              <Card key={book.title} body outline color="info" className="card">
                 <CardTitle>{book.title}</CardTitle>
                 <CardText>
                   <p>
@@ -28,21 +28,30 @@ class BookCard extends React.Component<BookCardProps> {
                   </p>
                   <p>Published: {book.releaseYear}</p>
                 </CardText>
+                {book.createdBy === this.props.currentUser.id ? (
+                  <div>
+                    <Button
+                      className="smallBtn"
+                      onClick={(e) => {
+                        this.props.selectBookToUpdate(book);
+                        this.props.updateOn();
+                      }}
+                    >
+                      Edit Book Details
+                    </Button>
+                    <Button
+                      className="smallBtn"
+                      onClick={(e) => this.props.deleteBook(book)}
+                    >
+                      Delete This Book
+                    </Button>
+                  </div>
+                ) : null}
                 <Button onClick={(e) => this.props.updateActiveBook(book)}>
                   Join The Discussion
                 </Button>
-                <Button
-                  onClick={(e) => {
-                    this.props.selectBookToUpdate(book);
-                    this.props.updateOn();
-                  }}
-                >
-                  Edit Book Details
-                </Button>
-                <Button onClick={(e) => this.props.deleteBook(book)}>
-                  Delete This Book
-                </Button>
               </Card>
+              <br />
             </Col>
           );
         })}
