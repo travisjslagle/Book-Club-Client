@@ -34,6 +34,7 @@ class BookRoot extends React.Component<BookRootProps> {
         ) : (
           <Home
             sessionToken={this.props.sessionToken}
+            activeBook={this.props.activeBook}
             updateActiveBook={this.props.updateActiveBook}
             currentUser={this.props.currentUser}
           />

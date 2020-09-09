@@ -1,10 +1,11 @@
 import React from "react";
 import "./Home.css";
-import Booklist from "../Booklist/Booklist";
+import Booklist, { Book } from "../Booklist/Booklist";
 import { User } from "../../App";
 
 interface HomeProps {
   sessionToken: string;
+  activeBook: Book | undefined;
   updateActiveBook: Function;
   currentUser: User;
 }
@@ -21,6 +22,7 @@ class Home extends React.Component<HomeProps> {
         />
         <Booklist
           sessionToken={this.props.sessionToken}
+          activeBook={this.props.activeBook}
           updateActiveBook={this.props.updateActiveBook}
           currentUser={this.props.currentUser}
         />

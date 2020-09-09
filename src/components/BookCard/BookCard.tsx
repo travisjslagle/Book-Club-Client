@@ -9,6 +9,8 @@ interface BookCardProps {
   deleteBook: Function;
   updateActiveBook: Function;
   currentUser: User;
+  updateOn: Function;
+  selectBookToUpdate: Function;
 }
 
 class BookCard extends React.Component<BookCardProps> {
@@ -28,6 +30,14 @@ class BookCard extends React.Component<BookCardProps> {
                 </CardText>
                 <Button onClick={(e) => this.props.updateActiveBook(book)}>
                   Join The Discussion
+                </Button>
+                <Button
+                  onClick={(e) => {
+                    this.props.selectBookToUpdate(book);
+                    this.props.updateOn();
+                  }}
+                >
+                  Edit Book Details
                 </Button>
                 <Button onClick={(e) => this.props.deleteBook(book)}>
                   Delete This Book

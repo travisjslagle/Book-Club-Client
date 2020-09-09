@@ -12,6 +12,8 @@ interface ThreadCardProps {
   clearActiveThread: Function;
   deleteThread: Function;
   currentUser: User;
+  updateOn: Function;
+  selectThreadToUpdate: Function;
 }
 
 class ThreadCard extends React.Component<ThreadCardProps> {
@@ -31,9 +33,19 @@ class ThreadCard extends React.Component<ThreadCardProps> {
                   Reply
                 </Button>
                 {thread.createdBy === this.props.currentUser.id ? (
-                  <Button onClick={(e) => this.props.deleteThread(thread)}>
-                    Delete This Thread
-                  </Button>
+                  <div>
+                    <Button
+                      onClick={(e) => {
+                        this.props.selectThreadToUpdate(thread);
+                        this.props.updateOn();
+                      }}
+                    >
+                      Edit Thread
+                    </Button>
+                    <Button onClick={(e) => this.props.deleteThread(thread)}>
+                      Delete This Thread
+                    </Button>
+                  </div>
                 ) : null}
               </Card>
             </Col>

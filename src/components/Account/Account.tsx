@@ -1,8 +1,9 @@
 import React from "react";
 import { User } from "../../App";
-// import { Thread } from "../Threadlist/Threadlist";
 import { Book } from "../Booklist/Booklist";
-import { Post } from "../ThreadDetail/ThreadDetail";
+import AccountCard from "../AccountCard/AccountCard";
+import { Button } from "reactstrap";
+import ModTools from "../ModTools/ModTools";
 
 interface AccountProps {
   sessionToken: string;
@@ -11,6 +12,7 @@ interface AccountProps {
 
 interface AccountState {
   userBooks: Book[];
+  showModTools: boolean;
 }
 
 class Account extends React.Component<AccountProps, AccountState> {
@@ -19,8 +21,14 @@ class Account extends React.Component<AccountProps, AccountState> {
 
     this.state = {
       userBooks: [],
+      showModTools: false,
     };
   }
+
+  toggleModTools = () => {
+    const newShowModTools = !this.state.showModTools;
+    this.setState({ showModTools: newShowModTools });
+  };
 
   fetchUsersBooks = () => {
     fetch("http://localhost:3001/book/mine", {
@@ -47,6 +55,17 @@ class Account extends React.Component<AccountProps, AccountState> {
         <h2>Your Account</h2>
         <div>
           <h3>Hello, {this.props.currentUser.username}</h3>
+          {this.props.currentUser.isModerator ? (
+            <Button onClick={this.toggleModTools}>Toggle Mod Tools View</Button>
+          ) : null}
+          {this.state.showModTools ? (
+            <ModTools sessionToken={this.props.sessionToken} />
+          ) : (
+            <div>
+              <p>Here are your books:</p>
+              <AccountCard userBooks={this.state.userBooks} />
+            </div>
+          )}
         </div>
       </div>
     );

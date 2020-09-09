@@ -4,6 +4,7 @@ import { User } from "../../App";
 import ThreadCard from "../ThreadCard/ThreadCard";
 import { Button, Form, Input } from "reactstrap";
 import ThreadDetail from "../ThreadDetail/ThreadDetail";
+import ThreadUpdate from "../ThreadUpdate/ThreadUpdate";
 
 interface ThreadlistProps {
   sessionToken: string;
@@ -26,6 +27,8 @@ interface ThreadlistState {
   addingThread: boolean;
   newHeadline: string;
   newOriginalPost: string;
+  threadUpdating: boolean;
+  threadToUpdate: Thread | undefined;
 }
 
 class Threadlist extends React.Component<ThreadlistProps, ThreadlistState> {
@@ -38,6 +41,8 @@ class Threadlist extends React.Component<ThreadlistProps, ThreadlistState> {
       addingThread: false,
       newHeadline: "",
       newOriginalPost: "",
+      threadUpdating: false,
+      threadToUpdate: undefined,
     };
   }
 
@@ -47,6 +52,19 @@ class Threadlist extends React.Component<ThreadlistProps, ThreadlistState> {
 
   clearActiveThread = () => {
     this.setState({ activeThread: undefined });
+  };
+
+  updateOn = (e: React.MouseEvent<HTMLButtonElement>) => {
+    this.setState({ threadUpdating: true });
+  };
+
+  updateOff = (e: React.MouseEvent<HTMLButtonElement>) => {
+    this.setState({ threadUpdating: false });
+    this.setState({ threadToUpdate: undefined });
+  };
+
+  selectThreadToUpdate = (thread: Thread) => {
+    this.setState({ threadToUpdate: thread });
   };
 
   fetchThreads = () => {
@@ -157,7 +175,20 @@ class Threadlist extends React.Component<ThreadlistProps, ThreadlistState> {
             clearActiveThread={this.clearActiveThread}
             deleteThread={this.deleteThread}
             currentUser={this.props.currentUser}
+            updateOn={this.updateOn}
+            selectThreadToUpdate={this.selectThreadToUpdate}
           />
+        )}
+        {this.state.threadUpdating ? (
+          <ThreadUpdate
+            sessionToken={this.props.sessionToken}
+            updateOff={this.updateOff}
+            // @ts-expect-error
+            threadToUpdate={this.state.threadToUpdate}
+            fetchThreads={this.fetchThreads}
+          />
+        ) : (
+          <> </>
         )}
       </div>
     );

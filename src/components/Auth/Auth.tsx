@@ -73,6 +73,7 @@ class Auth extends React.Component<AuthProps, AuthState> {
         const newCurrentUser = {
           id: json.user.id,
           username: json.user.username,
+          isModerator: json.user.isModerator,
         };
         this.props.setCurrentUser(newCurrentUser);
       });

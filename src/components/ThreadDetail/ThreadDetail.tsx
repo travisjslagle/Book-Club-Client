@@ -92,6 +92,16 @@ class ThreadDetail extends React.Component<
       .catch((err) => console.log(err));
   };
 
+  flagPost = (post: Post) => {
+    fetch(`http://localhost:3001/post/flagged/${post.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": this.props.sessionToken,
+      },
+    }).catch((err) => console.log(err));
+  };
+
   handleNewPostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     this.setState({ newPostContent: e.target.value });
@@ -145,6 +155,9 @@ class ThreadDetail extends React.Component<
                     Delete This Comment
                   </Button>
                 ) : null}
+                <Button onClick={(e) => this.flagPost(post)}>
+                  Flag This Comment
+                </Button>
               </Card>
             </>
           );

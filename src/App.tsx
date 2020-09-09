@@ -14,6 +14,7 @@ interface AppState {
 export interface User {
   id: number;
   username: string;
+  isModerator: boolean;
 }
 
 class App extends React.Component<{}, AppState> {
@@ -25,6 +26,7 @@ class App extends React.Component<{}, AppState> {
       currentUser: {
         id: 3,
         username: "Default",
+        isModerator: false,
       },
     };
   }
