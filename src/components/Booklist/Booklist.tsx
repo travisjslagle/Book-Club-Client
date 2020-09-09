@@ -3,6 +3,7 @@ import { Row, Button, Form, Input } from "reactstrap";
 import BookCard from "../BookCard/BookCard";
 import { User } from "../../App";
 import BookUpdate from "../BookUpdate/BookUpdate";
+import APIURL from "../../helpers/environment";
 
 interface BookProps {
   sessionToken: string;
@@ -48,7 +49,7 @@ class Booklist extends React.Component<BookProps, BookState> {
   }
 
   fetchBooks = () => {
-    fetch("http://localhost:3001/book/", {
+    fetch(`${APIURL}/book/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -63,7 +64,7 @@ class Booklist extends React.Component<BookProps, BookState> {
   };
 
   deleteBook = (book: Book) => {
-    fetch(`http://localhost:3001/book/delete/${book.id}`, {
+    fetch(`${APIURL}/book/delete/${book.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -123,7 +124,7 @@ class Booklist extends React.Component<BookProps, BookState> {
         createdBy: this.props.currentUser.id,
       },
     };
-    fetch("http://localhost:3001/book/create", {
+    fetch(`${APIURL}/book/create`, {
       method: "POST",
       body: JSON.stringify(newBookObj),
       headers: {

@@ -5,6 +5,7 @@ import ThreadCard from "../ThreadCard/ThreadCard";
 import { Button, Form, Input } from "reactstrap";
 import ThreadDetail from "../ThreadDetail/ThreadDetail";
 import ThreadUpdate from "../ThreadUpdate/ThreadUpdate";
+import APIURL from "../../helpers/environment";
 
 interface ThreadlistProps {
   sessionToken: string;
@@ -68,7 +69,7 @@ class Threadlist extends React.Component<ThreadlistProps, ThreadlistState> {
   };
 
   fetchThreads = () => {
-    fetch(`http://localhost:3001/thread/${this.props.activeBook.id}`, {
+    fetch(`${APIURL}/thread/${this.props.activeBook.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +84,7 @@ class Threadlist extends React.Component<ThreadlistProps, ThreadlistState> {
   };
 
   deleteThread = (thread: Thread) => {
-    fetch(`http://localhost:3001/thread/delete/${thread.id}`, {
+    fetch(`${APIURL}/thread/delete/${thread.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -108,7 +109,7 @@ class Threadlist extends React.Component<ThreadlistProps, ThreadlistState> {
         isFlagged: false,
       },
     };
-    fetch("http://localhost:3001/thread/create", {
+    fetch(`${APIURL}/thread/create`, {
       method: "POST",
       body: JSON.stringify(newThreadObj),
       headers: {

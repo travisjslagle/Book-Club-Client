@@ -4,6 +4,7 @@ import { Book } from "../Booklist/Booklist";
 import AccountCard from "../AccountCard/AccountCard";
 import { Button } from "reactstrap";
 import ModTools from "../ModTools/ModTools";
+import APIURL from "../../helpers/environment";
 
 interface AccountProps {
   sessionToken: string;
@@ -31,7 +32,7 @@ class Account extends React.Component<AccountProps, AccountState> {
   };
 
   fetchUsersBooks = () => {
-    fetch("http://localhost:3001/book/mine", {
+    fetch(`${APIURL}/book/mine`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

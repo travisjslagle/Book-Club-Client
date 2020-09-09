@@ -9,6 +9,7 @@ import {
   ModalBody,
 } from "reactstrap";
 import { Thread } from "../Threadlist/Threadlist";
+import APIURL from "../../helpers/environment";
 
 interface ThreadUpdateProps {
   sessionToken: string;
@@ -56,17 +57,14 @@ class ThreadUpdate extends React.Component<
         originalPost: this.state.updateOriginalPost,
       },
     };
-    fetch(
-      `http://localhost:3001/thread/update/${this.props.threadToUpdate.id}`,
-      {
-        method: "PUT",
-        body: JSON.stringify(updateThread),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": this.props.sessionToken,
-        },
-      }
-    )
+    fetch(`${APIURL}/thread/update/${this.props.threadToUpdate.id}`, {
+      method: "PUT",
+      body: JSON.stringify(updateThread),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": this.props.sessionToken,
+      },
+    })
       .then(this.props.updateOff())
       .then(this.props.fetchThreads())
       .catch((err) => console.log(err));
